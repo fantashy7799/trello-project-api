@@ -1,12 +1,16 @@
 import express from 'express'
 import { mapOrder } from '*/utilities/sorts.js'
+import { connectDB } from '*/config/mongodb'
+import { env } from '*/config/evirontment'
 
 const app = express()
 
-const hostname = 'localhost'
-const port = 7799
+const hostname = env.HOST
+const port = env.PORT
 
-app.get('/',(req, res) => {
+connectDB().catch(console.log)
+
+app.get('/', (req, res) => {
     res.end('<h1>hellooooo worlddddd</h1><hr/>')
 })
 
