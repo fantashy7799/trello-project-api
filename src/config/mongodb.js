@@ -1,5 +1,7 @@
-import { MongoClient } from "mongodb";
-import { env } from "*/config/evirontment"
+import { MongoClient } from 'mongodb'
+import { env } from '*/config/evirontment'
+
+let dbInstance = null
 
 //require('dotenv').config()
 
@@ -12,24 +14,16 @@ export const connectDB = async () => {
     useNewUrlParser:  true
   })
 
-  try {
-    //Connect the client to the server
-    await client.connect()
+  //Connect the client to the server
+  await client.connect()
 
-    //list databases
-    await listDatabases(client)
+  // Assign clientDB to our dbInstance
+  dbInstance = client.db(env.DATABASE_NAME)
 
-    console.log('connected succesfully to server!')
-
-  } finally {
-    //Ensure that the client will close when finish/error
-    await client.close()
-  }
 }
 
-const listDatabases = async (client) => {
-  const databasesList = await client.db().admin().listDatabases()
-  console.log(databasesList)
-  console.log('Your databases:')
-  databasesList.databases.forEach(db => console.log(' - ${db.name}'))
+// Get Database Instance
+export const getDB = () => {
+  if (!dbInstance) throw new Error('Must connect to Database first')
+  return dbInstance
 }
