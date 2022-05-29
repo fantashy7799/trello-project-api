@@ -9,4 +9,4 @@ const createNew = async (data) => {
   }
 }
 
-export const boardService = { createNew }
+export const BoardService = { createNew }

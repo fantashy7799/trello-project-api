@@ -8,4 +8,4 @@ router.route('/')
 //  .get((req, res) => console.log('Get boards'))
   .post(BoardValidation.createNew, BoardController.createNew)
 
-export const BoardRoutes = router
+export const boardRoutes = router
